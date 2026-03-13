@@ -1,0 +1,41 @@
+{
+  "reference_id": "ref-golden-001",
+  "organization_id": "org-golden",
+  "site_id": "site-golden",
+  "reference_upsert": {
+    "device_id": "thermostat-001",
+    "label": "Main Hall Thermostat",
+    "metadata": {
+      "vendor": "zigbee2mqtt",
+      "model": "TH-900",
+      "brick_class": "Temperature_Sensor"
+    }
+  },
+  "mappings_initial": [
+    {
+      "mapping_id": "map-temp",
+      "source_key": "temperature",
+      "target_point_id": "point-temp-main",
+      "transform": "identity"
+    },
+    {
+      "mapping_id": "map-humidity",
+      "source_key": "humidity",
+      "target_point_id": "point-humidity-main",
+      "transform": "identity"
+    }
+  ],
+  "mappings_replacement": [
+    {
+      "mapping_id": "map-temp",
+      "source_key": "temperature",
+      "target_point_id": "point-temp-main-v2",
+      "transform": "identity"
+    }
+  ],
+  "link_upsert": {
+    "link_id": "link-equip-main",
+    "point_id": "point-temp-main-v2",
+    "relation": "observes"
+  }
+}
