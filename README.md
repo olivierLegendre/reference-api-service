@@ -76,3 +76,7 @@ Refresh it with:
 ```bash
 python scripts/export_openapi.py
 ```
+
+## Operations Runbook
+
+- `docs/runbooks/incident-rollback-recovery.md`
