@@ -34,7 +34,7 @@ source .venv/bin/activate
 PostgreSQL backend (default):
 
 ```bash
-export REFERENCE_API_POSTGRES_DSN='postgresql://postgres:postgres@localhost:5432/reference_api'
+export REFERENCE_API_POSTGRES_DSN='postgresql://svc_reference_api_app:dev_reference_api_app@localhost:55440/reference_api'
 uvicorn reference_api_service.main:app --reload
 ```
 
@@ -62,6 +62,11 @@ PostgreSQL integration tests:
 ```bash
 ./scripts/run_postgres_integration_tests.sh
 ```
+
+Shared Postgres dependency:
+
+- The integration script uses `platform-foundation` shared cluster provisioning (no local per-service Postgres container).
+- Optional env override: `POSTGRES_SHARED_ENV_FILE=/path/to/postgres-shared.env`.
 
 Golden compatibility fixture regression:
 
