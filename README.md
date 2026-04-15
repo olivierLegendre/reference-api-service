@@ -44,7 +44,15 @@ In-memory backend is intended for tests/tooling only:
 export REFERENCE_API_PERSISTENCE_BACKEND=in_memory
 ```
 
-Schema SQL is tracked in `scripts/init_postgres.sql` and auto-applied by default.
+Schema migration is handled with Alembic (`alembic/` + `scripts/migrate_postgres.sh`).
+`scripts/init_postgres.sql` remains as a bootstrap fallback, but production path should use Alembic upgrades.
+
+Apply migrations (migrator role):
+
+```bash
+export REFERENCE_API_MIGRATOR_DSN='postgresql://svc_reference_api_migrator:dev_reference_api_migrator@localhost:55440/reference_api'
+./scripts/migrate_postgres.sh upgrade head
+```
 
 ## Test
 
@@ -67,6 +75,7 @@ Shared Postgres dependency:
 
 - The integration script uses `platform-foundation` shared cluster provisioning (no local per-service Postgres container).
 - Optional env override: `POSTGRES_SHARED_ENV_FILE=/path/to/postgres-shared.env`.
+- Integration flow now applies Alembic migrations with the migrator role, then runs tests with the app role DSN.
 
 Golden compatibility fixture regression:
 

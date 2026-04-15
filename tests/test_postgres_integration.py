@@ -14,7 +14,7 @@ def test_postgres_backend_roundtrip(monkeypatch: pytest.MonkeyPatch) -> None:
 
     monkeypatch.setenv("REFERENCE_API_PERSISTENCE_BACKEND", "postgres")
     monkeypatch.setenv("REFERENCE_API_POSTGRES_DSN", dsn)
-    monkeypatch.setenv("REFERENCE_API_POSTGRES_AUTO_INIT", "true")
+    monkeypatch.setenv("REFERENCE_API_POSTGRES_AUTO_INIT", "false")
 
     client = TestClient(create_app())
 
@@ -87,7 +87,7 @@ def test_postgres_tenant_scope_isolation(monkeypatch: pytest.MonkeyPatch) -> Non
 
     monkeypatch.setenv("REFERENCE_API_PERSISTENCE_BACKEND", "postgres")
     monkeypatch.setenv("REFERENCE_API_POSTGRES_DSN", dsn)
-    monkeypatch.setenv("REFERENCE_API_POSTGRES_AUTO_INIT", "true")
+    monkeypatch.setenv("REFERENCE_API_POSTGRES_AUTO_INIT", "false")
 
     client = TestClient(create_app())
 

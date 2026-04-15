@@ -14,7 +14,7 @@ Critical path: reference/mapping CRUD APIs.
 ## Rollback
 
 1. Re-deploy last known good release artifact for `reference-api-service`.
-2. Re-apply `scripts/init_postgres.sql` only if schema drift occurred.
+2. Re-apply schema state with Alembic migrations (`./scripts/migrate_postgres.sh upgrade head`) if schema drift occurred.
 3. Keep traffic read-only until validation passes.
 
 ## Recovery Validation

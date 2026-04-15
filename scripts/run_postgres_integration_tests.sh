@@ -23,8 +23,13 @@ fi
 DB_HOST="${POSTGRES_CLUSTER_HOST:-localhost}"
 DB_PORT="${POSTGRES_CLUSTER_PORT:-55440}"
 DB_NAME="${REFERENCE_API_DB_NAME:-reference_api}"
-DB_USER="${REFERENCE_API_MIGRATOR_ROLE:-svc_reference_api_migrator}"
-DB_PASSWORD="${REFERENCE_API_MIGRATOR_PASSWORD:-dev_reference_api_migrator}"
+APP_USER="${REFERENCE_API_APP_ROLE:-svc_reference_api_app}"
+APP_PASSWORD="${REFERENCE_API_APP_PASSWORD:-dev_reference_api_app}"
+MIGRATOR_USER="${REFERENCE_API_MIGRATOR_ROLE:-svc_reference_api_migrator}"
+MIGRATOR_PASSWORD="${REFERENCE_API_MIGRATOR_PASSWORD:-dev_reference_api_migrator}"
 
-export REFERENCE_API_TEST_POSTGRES_DSN="postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}"
+export REFERENCE_API_MIGRATOR_DSN="postgresql://${MIGRATOR_USER}:${MIGRATOR_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}"
+./scripts/migrate_postgres.sh upgrade head
+
+export REFERENCE_API_TEST_POSTGRES_DSN="postgresql://${APP_USER}:${APP_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}"
 pytest -m postgres_integration -q
